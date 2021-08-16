@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+
+* {
+  font-family: "Ubuntu", sans-serif;
+}
+
+.bg-image {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  height: 100vh;
+}
+
+.bg-image-jumbotron {
+  background-image: url("../assets/img/masjid.jpg");
+}
+
+.bg-image-infaq {
+  background-image: url("../assets/img/infaq.jpg");
+}
+
+.mask {
+  height: 100%;
+  width: 100%;
+}
