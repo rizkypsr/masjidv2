@@ -11,10 +11,10 @@ class UserSeeder extends Seeder
 	public function run()
 	{
 		$data = [
-			'name' => "bibiwu tak pernah salah",
-			'email' => "bibiwu@email.com",
-			'username' => "bibiwu",
-			'password' => 'edij271100',
+			'name' => "123",
+			'email' => "123@email.com",
+			'username' => "123",
+			'password' => 'evdscsdc122121w',
 			'active' => 1
 		];
 

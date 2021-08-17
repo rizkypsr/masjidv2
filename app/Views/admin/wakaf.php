@@ -42,7 +42,7 @@
                     <tr>
                         <td><?= $t->id ?></td>
                         <td><?= $t->id_user ?></td>
-                        <td><?= $t->jumlah ?></td>
+                        <td><?= $t->total ?></td>
                         <td><?= $t->id_transaksi ?></td>
                         <td><?= $t->status ?></td>
                         <td><?= $t->created_at ?></td>
