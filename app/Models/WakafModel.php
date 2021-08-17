@@ -11,7 +11,7 @@ class WakafModel extends Model
 	protected $useAutoIncrement     = true;
 
 	protected $protectFields        = true;
-	protected $allowedFields        = [""];
+	protected $allowedFields        = ["id", "id_user", "keterangan", "total", "id_transaksi"];
 
 	// Dates
 	protected $useTimestamps        = true;

@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\InfaqModel;
 use App\Models\TransaksiModel;
 use App\Models\WakafModel;
+use App\Models\ZakatModel;
 use Config\Database;
 use Exception;
 use Midtrans\Config;
@@ -14,13 +15,14 @@ use Midtrans\Snap;
 class Transaksi extends BaseController
 {
 
-	protected $transaksiModel, $wakafModel, $infaqModel;
+	protected $transaksiModel, $wakafModel, $infaqModel, $zakatModel;
 
 	public function __construct()
 	{
 		$this->transaksiModel = new TransaksiModel();
 		$this->wakafModel = new WakafModel();
 		$this->infaqModel = new InfaqModel();
+		$this->zakatModel = new ZakatModel();
 	}
 
 	public function index()
@@ -47,7 +49,7 @@ class Transaksi extends BaseController
 	{
 		$db = Database::connect();
 		$builder = $db->table('transaksi');
-		$builder->select('transaksi.id as id_transaksi, transaksi.jenis as jenis, wakaf.total as jumlah, transaksi.status');
+		$builder->select('transaksi.id as id_transaksi, transaksi.jenis as jenis, wakaf.total as jumlah, transaksi.status, transaksi.created_at');
 		$builder->join('wakaf', 'transaksi.id = wakaf.id_transaksi');
 		$query = $builder->get()->getResult();
 
@@ -62,7 +64,7 @@ class Transaksi extends BaseController
 	{
 		$db = Database::connect();
 		$builder = $db->table('transaksi');
-		$builder->select('transaksi.id as id_transaksi, transaksi.jenis as jenis, zakat.jumlah as jumlah, transaksi.status');
+		$builder->select('transaksi.id as id_transaksi, transaksi.jenis as jenis, zakat.jumlah as jumlah, transaksi.status, transaksi.created_at');
 		$builder->join('zakat', 'transaksi.id = zakat.id_transaksi');
 		$query = $builder->get()->getResult();
 
@@ -98,10 +100,34 @@ class Transaksi extends BaseController
 
 		if ($jenis == "zakat") {
 			$jumlah = $this->request->getVar("total");
+			$jenis = $this->request->getVar("jenis");
+
+			$dataZakat = [
+				"id_user" => '10',
+				"id_transaksi" => $transaksi,
+				"jumlah" => $jumlah,
+				"jenis" => $jenis,
+			];
+
+			$zakat = $this->zakatModel->insert($dataZakat);
+
+			$zakat = $this->zakatModel->find($zakat);
 		}
 
 		if ($jenis == "wakaf") {
 			$jumlah = $this->request->getVar("total");
+			$keterangan = $this->request->getVar("keterangan");
+
+			$dataWakaf = [
+				"id_user" => '10',
+				"id_transaksi" => $transaksi,
+				"total" => $jumlah,
+				"keterangan" => $keterangan,
+			];
+
+			$wakaf = $this->wakafModel->insert($dataWakaf);
+
+			$wakaf = $this->wakafModel->find($wakaf);
 		}
 
 		Config::$serverKey = 'SB-Mid-server-Ysozo8JlNh3Qp8ECQyJ4zKlu';

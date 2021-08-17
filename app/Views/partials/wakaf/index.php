@@ -131,40 +131,118 @@
         </div>
     </div>
 
-    <form action="/ziswaf/wakafTransaksi" method="POST">
-        <div class="card mt-3 p-4">
-            <h4 class="card-title">Pilih Paket Wakaf</h4>
-            <div class="card-body">
-                <select id="paketSelect" name="paket" class="form-select" aria-label="Metode Pembayaran">
-                    <option selected value="Paket Single">Paket Single - Rp. 750.000</option>
-                    <option value="Paket 2">Paket 2 - Rp. 1.500.000</option>
-                    <option value="Paket 3">Paket 3 - Rp. 2.000.000</option>
-                    <option value="Paket 4">Paket 4 - Rp. 2.500.000</option>
-                    <option value="Paket 5">Paket Keluarga - Rp. 3.000.000</option>
-                    <option value="Paket Tambahan">Paket Tambahan Lebih dari 5 Orang</option>
-                </select>
-
-                <div id="tambahan" class="my-3">
-                    <label for="tambahanInput" class="form-label">Jumlah Orang</label>
-                    <input type="number" name="tambahan" class="form-control" min="1" max="30" maxlength="2"
-                        style="width: 5rem;" id="tambahanInput" value="1">
-                </div>
-            </div>
-        </div>
-        <div class="card mt-3 p-4">
-            <h4 class="card-title">Pilih Metode Pembayaran</h4>
-            <div class="card-body">
-                <select class="form-select" name="pembayaran" aria-label="Metode Pembayaran">
-                    <option selected value="Transfer Bank Mandiri">Transfer Bank Mandiri</option>
-                    <option value="Transfer Bank BNI">Transfer Bank BNI</option>
-                    <option value="Transfer Bank BRI">Transfer Bank BRI</option>
-                    <option value="OVO">OVO</option>
-                    <option value="GOPAY">GOPAY</option>
-                    <option value="DANA">DANA</option>
-                </select>
-
-                <button type="submit" class="btn btn-success mt-3">Wakaf Sekarang</button>
-            </div>
-        </div>
+    <form id="payment-form-wakaf" method="post" action="/midtrans/finish">
+        <input type="hidden" name="result_type" id="result-type-wakaf" value="">
+        <input type="hidden" name="result_data" id="result-data-wakaf" value="">
     </form>
+
+    <div class="card mt-3 p-4">
+        <h4 class="card-title">Pilih Paket Wakaf</h4>
+        <div class="card-body">
+            <select id="paketSelect" name="paket" class="form-select" aria-label="Metode Pembayaran">
+                <option selected value="Paket Single">Paket Single - Rp. 750.000</option>
+                <option value="Paket 2">Paket 2 - Rp. 1.500.000</option>
+                <option value="Paket 3">Paket 3 - Rp. 2.000.000</option>
+                <option value="Paket 4">Paket 4 - Rp. 2.500.000</option>
+                <option value="Paket 5">Paket Keluarga - Rp. 3.000.000</option>
+                <option value="Paket Tambahan">Paket Tambahan Lebih dari 5 Orang</option>
+            </select>
+
+            <div id="tambahan" class="my-3">
+                <label for="tambahanInput" class="form-label">Jumlah Orang</label>
+                <input type="number" name="tambahan" class="form-control" min="1" max="30" maxlength="2"
+                    style="width: 5rem;" id="tambahanInput" value="1">
+            </div>
+        </div>
+    </div>
+    <button id="pay-button-wakaf" type="button" class="btn btn-success mt-3">Wakaf Sekarang</button>
+
 </div>
+
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-server-Ysozo8JlNh3Qp8ECQyJ4zKlu">
+</script>
+<script type="text/javascript">
+$('#pay-button-wakaf').click(function(event) {
+    event.preventDefault();
+    $(this).attr("disabled", "disabled");
+
+    const paket = $("select#paketSelect").val();
+    const tambahan = $("#tambahanInput").val();
+
+    let total;
+
+    switch (paket) {
+        case "Paket Single":
+            total = 750000;
+            break;
+        case "Paket 2":
+            total = 1500000;
+            break;
+
+        case "Paket 3":
+            total = 2000000;
+            break;
+
+        case "Paket 4":
+            total = 2500000;
+            break;
+
+        case "Paket 5":
+            total = 3000000;
+            break;
+
+        case "Paket Tambahan":
+            let extra = tambahan * 600000;
+            total = 3000000 + extra;
+            break;
+    }
+
+    console.log(total);
+
+    $.ajax({
+        type: 'POST',
+        url: '<?= base_url("transaksi/checkout/wakaf") ?>',
+        data: {
+            total: total,
+            keterangan: paket
+        },
+        cache: false,
+
+        success: function(data) {
+            //location = data;
+
+            console.log('token = ' + data);
+
+            var resultType = document.getElementById('result-type-wakaf');
+            var resultData = document.getElementById('result-data-wakaf');
+
+            function changeResult(type, data) {
+                $("#result-type-wakaf").val(type);
+                $("#result-data-wakaf").val(JSON.stringify(data));
+                //resultType.innerHTML = type;
+                //resultData.innerHTML = JSON.stringify(data);
+            }
+
+            snap.pay(data, {
+
+                onSuccess: function(result) {
+                    changeResult('success', result);
+                    console.log(result.status_message);
+                    console.log(result);
+                    $("#payment-form-wakaf").submit();
+                },
+                onPending: function(result) {
+                    changeResult('pending', result);
+                    console.log(result.status_message);
+                    $("#payment-form-wakaf").submit();
+                },
+                onError: function(result) {
+                    changeResult('error', result);
+                    console.log(result.status_message);
+                    $("#payment-form-wakaf").submit();
+                }
+            });
+        }
+    });
+});
+</script>
