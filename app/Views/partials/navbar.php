@@ -32,8 +32,13 @@
                 </li>
             </ul>
             <div class="d-flex justify-content-between" style="width: 10rem;">
+                <?php helper('auth') ?>
+                <?php if (logged_in()) : ?>
+                <a href="/logout" class="btn btn-outline-success" type="submit">Keluar</a>
+                <?php else : ?>
                 <a href="/register" class="btn btn-outline-success" type="submit">Daftar</a>
                 <a href="/login" class="btn btn-success" type="submit">Masuk</a>
+                <?php endif ?>
             </div>
         </div>
     </div>
