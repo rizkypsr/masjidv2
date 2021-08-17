@@ -19,6 +19,17 @@
                 <li class="nav-item pe-5">
                     <a class="nav-link active" aria-current="page" href="/ziswaf/zakat">Zakat</a>
                 </li>
+                <li class="nav-item dropdown pe-5">
+                    <a class="nav-link dropdown-toggle active" href="/transaksi" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Transaksi
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/transaksi/wakaf">Wakaf</a></li>
+                        <li><a class="dropdown-item" href="/transaksi/infaq">Infaq</a></li>
+                        <li><a class="dropdown-item" href="/transaksi/zakat">Zakat</a></li>
+                    </ul>
+                </li>
             </ul>
             <div class="d-flex justify-content-between" style="width: 10rem;">
                 <a href="/register" class="btn btn-outline-success" type="submit">Daftar</a>

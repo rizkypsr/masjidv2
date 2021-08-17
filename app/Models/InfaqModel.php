@@ -4,14 +4,13 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class WakafModel extends Model
+class InfaqModel extends Model
 {
-	protected $table                = 'wakaf';
+	protected $table                = 'infaq';
 	protected $primaryKey           = 'id';
 	protected $useAutoIncrement     = true;
 
-	protected $protectFields        = true;
-	protected $allowedFields        = [""];
+	protected $allowedFields        = ["id", "id_user", "jumlah", "id_transaksi", 'created_at', 'updated_at', 'deleted_at'];
 
 	// Dates
 	protected $useTimestamps        = true;

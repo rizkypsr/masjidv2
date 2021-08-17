@@ -131,7 +131,7 @@
         </div>
     </div>
 
-    <form action="/transaksi" method="POST">
+    <form action="/ziswaf/wakafTransaksi" method="POST">
         <div class="card mt-3 p-4">
             <h4 class="card-title">Pilih Paket Wakaf</h4>
             <div class="card-body">
