@@ -34,11 +34,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/ziswaf/(:any)', 'Ziswaf::index/$1');
 $routes->get('/transaksi', 'Transaksi::index');
-
-
-$routes->group('/admin', ['filter' => 'role:admin,superadmin'], function ($routes) {
-	$routes->add('/dashboard', 'Admin\AdminDashboard::index');
-});
+$routes->get('/administrator', 'Administrator\Wakaf::index');
 
 /*
  * --------------------------------------------------------------------
