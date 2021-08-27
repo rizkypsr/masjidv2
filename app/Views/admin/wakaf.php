@@ -18,22 +18,20 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Id User</th>
+                        <th>Nama User</th>
                         <th>Jumlah</th>
-                        <th>Id Transaksi</th>
                         <th>Status</th>
-                        <th>Tanggal Infaq</th>
+                        <th>Tanggal Wakaf</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>Id</th>
-                        <th>Id User</th>
+                        <th>Nama User</th>
                         <th>Jumlah</th>
-                        <th>Id Transaksi</th>
                         <th>Status</th>
-                        <th>Tanggal Infaq</th>
+                        <th>Tanggal Wakaf</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>
@@ -41,14 +39,19 @@
                     <?php foreach ($wakaf as $t) : ?>
                     <tr>
                         <td><?= $t->id ?></td>
-                        <td><?= $t->id_user ?></td>
+                        <td><?= $t->fullname ?></td>
                         <td><?= $t->total ?></td>
-                        <td><?= $t->id_transaksi ?></td>
-                        <td><?= $t->status ?></td>
+                        <td>
+                            <span class="badge badge-danger">
+                                <?= $t->status ?>
+                            </span>
+                        </td>
                         <td><?= $t->created_at ?></td>
                         <td>
-
-                            <a class="btn btn-danger btn-circle" href="/admin/wakaf/delete/<?= $t->id ?>">
+                            <a class="btn btn-success btn-circle" href="/administrator/wakaf/edit/<?= $t->id ?>">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a class="btn btn-danger btn-circle" href="/administrator/wakaf/delete/<?= $t->id ?>">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>

@@ -7,8 +7,6 @@
     <h1 class="h3 mb-0 text-gray-800">Users</h1>
 </div>
 
-<a class="btn btn-primary mb-3" href="/admin/user/create">Tambah User</a>
-
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -41,17 +39,17 @@
                     <?php foreach ($users as $t) : ?>
                     <tr>
                         <td><?= $t->id ?></td>
-                        <td><?= $t->name ?></td>
+                        <td><?= $t->fullname ?></td>
                         <td><?= $t->email ?></td>
                         <td><?= $t->username ?></td>
                         <td class="text-light">
                             <?= $t->active == 1 ? '<span class="badge bg-success">Aktif</span>' : '<span class="badge bg-danger">Belum Aktif</span>' ?>
                         </td>
                         <td>
-                            <a class="btn btn-success btn-circle" href="/admin/user/edit/<?= $t->id ?>">
+                            <a class="btn btn-success btn-circle" href="/administrator/user/edit/<?= $t->id ?>">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a class="btn btn-danger btn-circle" href="/admin/user/delete/<?= $t->id ?>">
+                            <a class="btn btn-danger btn-circle" href="/administrator/user/delete/<?= $t->id ?>">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>

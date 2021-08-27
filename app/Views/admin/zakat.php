@@ -48,7 +48,7 @@
                         <td><?= $t->created_at ?></td>
                         <td>
 
-                            <a class="btn btn-danger btn-circle" href="/admin/zakat/delete/<?= $t->id ?>">
+                            <a class="btn btn-danger btn-circle" href="/administrator/zakat/delete/<?= $t->id ?>">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>

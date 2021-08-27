@@ -12,24 +12,15 @@
         <h6 class="m-0 font-weight-bold text-primary">Edit User</h6>
     </div>
     <div class="card-body">
-        <form action="/admin/user/update">
+        <form action="/administrator/user/update">
             <div class="mb-3">
                 <label for="inputName" class="form-label">Nama</label>
                 <input type="hidden" name="id" value="<?= $user->id ?>">
                 <input type="text"
-                    class="form-control <?php if ($validation->hasError('name')) : ?>is-invalid<?php endif ?>"
-                    id="inputName" name="name" value="<?= $user->name ?>">
+                    class="form-control <?php if ($validation->hasError('fullname')) : ?>is-invalid<?php endif ?>"
+                    id="inputName" name="fullname" value="<?= old('fullname') ?? $user->fullname ?>">
                 <div class="invalid-feedback">
-                    <?= $validation->getError('name') ?>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="inputUsername" class="form-label">Username</label>
-                <input type="text"
-                    class="form-control <?php if ($validation->hasError('username')) : ?>is-invalid<?php endif ?>"
-                    id="inputUsername" name="username" value="<?= $user->username ?>">
-                <div class="invalid-feedback">
-                    <?= $validation->getError('username') ?>
+                    <?= $validation->getError('fullname') ?>
                 </div>
             </div>
             <div class="mb-3">
