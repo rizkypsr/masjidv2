@@ -79,7 +79,7 @@ $('#pay-button').click(function(event) {
                 },
                 onClose: function(result) {
                     changeResult('close', result);
-                    $("#payment-form-wakaf").submit();
+                    $("#payment-form-infaq").submit();
                 }
             });
         }
