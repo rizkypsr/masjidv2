@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\TransaksiModel;
+use Config\Database;
 use Midtrans\Config;
 use Midtrans\Notification;
 
@@ -71,8 +72,19 @@ class Midtrans extends BaseController
 
 	public function finish()
 	{
+		$resultType = $this->request->getVar('result_type');
 		$result = json_decode($this->request->getVar('result_data'));
 
+		if ($resultType == "close") {
+			$db = Database::connect();
+			$builder = $db->table('transaksi');
+			$builder->select("*")->orderBy("id", "DESC")->limit(1);
+			$newTransaksi = $builder->get()->getResult();
+
+			$this->transaksiModel->delete($newTransaksi[0]->id);
+
+			return redirect()->back();
+		}
 
 		$data = [
 			"status" => $result->transaction_status,

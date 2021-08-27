@@ -76,6 +76,10 @@ $('#pay-button').click(function(event) {
                     changeResult('error', result);
                     console.log(result.status_message);
                     $("#payment-form").submit();
+                },
+                onClose: function(result) {
+                    changeResult('close', result);
+                    $("#payment-form-wakaf").submit();
                 }
             });
         }

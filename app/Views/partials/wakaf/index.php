@@ -197,7 +197,6 @@ $('#pay-button-wakaf').click(function(event) {
             break;
     }
 
-    console.log(total);
 
     $.ajax({
         type: 'POST',
@@ -239,6 +238,10 @@ $('#pay-button-wakaf').click(function(event) {
                 onError: function(result) {
                     changeResult('error', result);
                     console.log(result.status_message);
+                    $("#payment-form-wakaf").submit();
+                },
+                onClose: function(result) {
+                    changeResult('close', result);
                     $("#payment-form-wakaf").submit();
                 }
             });

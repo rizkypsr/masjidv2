@@ -83,7 +83,6 @@ class Transaksi extends BaseController
 
 		$transaksi = $this->transaksiModel->insert($dataTransaksi);
 
-
 		if ($jenis == "infaq") {
 			$jumlah = $this->request->getVar("total");
 
@@ -149,7 +148,6 @@ class Transaksi extends BaseController
 		];
 
 		try {
-
 			$snapToken = Snap::getSnapToken($midtrans);
 			echo $snapToken;
 		} catch (Exception $e) {

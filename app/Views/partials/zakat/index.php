@@ -63,7 +63,7 @@ $('#pay-button-zakat').click(function(event) {
     let total;
 
     if (paket == "maal") {
-        total = $("#inputKekayaan").val();
+        total = $("#kekayaan").val();
     } else {
         total = $("#totalFitrah").val();
     }
@@ -109,6 +109,10 @@ $('#pay-button-zakat').click(function(event) {
                     changeResult('error', result);
                     console.log(result.status_message);
                     $("#payment-form-zakat").submit();
+                },
+                onClose: function(result) {
+                    changeResult('close', result);
+                    $("#payment-form-wakaf").submit();
                 }
             });
         }
